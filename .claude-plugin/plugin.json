@@ -5,6 +5,7 @@
   "description": "Validate GTFS Schedule feeds with the GTFS Analyzer engine and get publishability, scores, and prioritized fixes. The feed is analyzed locally and is not uploaded to any server.",
   "author": { "name": "Tacettin Tezer", "url": "https://github.com/ttezer" },
   "homepage": "https://ttezer.github.io/gtfs-analyzer/",
+  "repository": "https://github.com/ttezer/gtfs-validator-plugin",
   "license": "MIT",
   "keywords": ["gtfs", "transit", "validation", "public transport"]
 }
