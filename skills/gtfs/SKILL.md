@@ -101,7 +101,19 @@ priorities summarized in a sentence. Offer to run the analysis again on a correc
 
 ## Rule questions
 
-When the user asks what a rule ID means (for example `/gtfs TRP_002`), answer from the rule's
-`title` and `remediation` in a result you already have. Otherwise describe it from
-https://github.com/ttezer/gtfs-analyzer/blob/main/RULES.en.md if you can open it, and say where
-the text came from; if you cannot, say so and offer to explain it once a feed is analyzed.
+When the user asks what a rule ID means (for example `/gtfs TRP_002`):
+
+1. If a result you already have contains the rule, answer from its `title`, `remediation`, and
+   examples.
+2. Otherwise look the rule up in the rule list for engine 0.16.0, in the user's language
+   (`references/rules.<en|tr|fr|ja>.md`; `en` for other languages). Do not read the whole file;
+   search for the row, matching the ID exactly:
+
+   ```
+   grep -F "| TRP_002 |" ${CLAUDE_SKILL_DIR}/references/rules.en.md
+   ```
+
+   The row gives the title, severity, and class. The `##` heading above it names the rule group.
+   The list has no remediation text: explain what the title means for the feed and say that the
+   exact fix and affected rows come from analyzing a feed.
+3. If the ID is not in the list, say that the engine has no such rule. Do not guess one.

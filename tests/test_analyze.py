@@ -130,6 +130,17 @@ def test_missing_package_is_reported(feed: Path) -> None:
     assert "gtfs-analyzer==" in out["message"]
 
 
+@pytest.mark.parametrize("lang", ["en", "tr", "fr", "ja"])
+def test_rule_lists_cover_rules_the_engine_reports(feed: Path, lang: str) -> None:
+    rules_file = ROOT / "skills" / "gtfs" / "references" / f"rules.{lang}.md"
+    text = rules_file.read_text(encoding="utf-8")
+    _, out = run(str(feed), "--today", TODAY)
+
+    missing = [r["rule_id"] for r in out["rules"] if f"| {r['rule_id']} |" not in text]
+    assert not missing
+    assert rules_file.stat().st_size < 256 * 1024
+
+
 def test_version_mismatch_adds_warning(feed: Path, monkeypatch, capsys) -> None:
     spec = importlib.util.spec_from_file_location("analyze", SCRIPT)
     analyze = importlib.util.module_from_spec(spec)
