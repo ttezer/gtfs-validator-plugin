@@ -43,6 +43,7 @@ Pick `--lang` from the user's language; use `en` for any other language.
 The script prints one JSON object. Exit code 2 with `"error": "FATAL"` means the engine could
 not analyze the feed at all (for example an unreadable ZIP): report it as an analysis failure,
 not as a verdict on the feed. Exit code 3 means the package is missing: go back to step 2.
+Exit code 4 with `"error": "INPUT"` means a bad argument or an unreadable path: fix the call.
 
 ## 4. Explain the result
 

@@ -3,6 +3,12 @@
 The engine result can hold hundreds of thousands of notices, so this script keeps the
 engine's verdict, scores and R9 priority order as returned and adds only counts and a few
 example notices per prioritized rule. It never recomputes scores or publishability.
+
+Exit codes (stdout is always one JSON object):
+  0  summary printed
+  2  FATAL: the engine could not analyze the feed (for example an unreadable ZIP)
+  3  PACKAGE_MISSING: gtfs-analyzer is not installed
+  4  INPUT: bad arguments, unreadable path, or invalid --today
 """
 
 from __future__ import annotations
@@ -17,11 +23,30 @@ LANGS = ("en", "tr", "fr", "ja")
 
 EXAMPLE_FIELDS = ("file", "line", "field", "entity_id", "observed_value", "expected_value", "message")
 
+EXIT_OK = 0
+EXIT_FATAL = 2
+EXIT_PACKAGE_MISSING = 3
+EXIT_INPUT = 4
 
-def emit(payload: dict, code: int = 0) -> None:
+
+def emit(payload: dict, code: int = EXIT_OK) -> None:
     json.dump(payload, sys.stdout, ensure_ascii=False, indent=1)
     sys.stdout.write("\n")
     sys.exit(code)
+
+
+class JsonArgumentParser(argparse.ArgumentParser):
+    """Report usage errors as an INPUT JSON object instead of argparse's exit code 2."""
+
+    def error(self, message: str) -> None:
+        emit({"error": "INPUT", "message": message}, EXIT_INPUT)
+
+
+def non_negative_int(text: str) -> int:
+    value = int(text)
+    if value < 0:
+        raise argparse.ArgumentTypeError("must be 0 or greater")
+    return value
 
 
 def notice_brief(notice: dict) -> dict:
@@ -90,12 +115,12 @@ def summarize(result: dict, max_priorities: int, examples: int) -> dict:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = JsonArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("feed", help="path to a GTFS ZIP file")
     parser.add_argument("--lang", default="en", choices=LANGS)
-    parser.add_argument("--today", help="validation date, YYYYMMDD (defaults to today)")
-    parser.add_argument("--max-priorities", type=int, default=15)
-    parser.add_argument("--examples", type=int, default=3)
+    parser.add_argument("--today", help="validation date, YYYYMMDD or YYYY-MM-DD (defaults to today)")
+    parser.add_argument("--max-priorities", type=non_negative_int, default=15)
+    parser.add_argument("--examples", type=non_negative_int, default=3)
     args = parser.parse_args()
 
     try:
@@ -104,7 +129,7 @@ def main() -> None:
         emit({
             "error": "PACKAGE_MISSING",
             "message": f"Install the engine first: pip install gtfs-analyzer=={PINNED_VERSION}",
-        }, 3)
+        }, EXIT_PACKAGE_MISSING)
 
     kwargs = {"lang": args.lang}
     if args.today:
@@ -112,9 +137,9 @@ def main() -> None:
     try:
         result = gtfs_analyzer.validate_gtfs(args.feed, **kwargs)
     except gtfs_analyzer.ValidationError as err:
-        emit({"error": "FATAL", "message": str(err), "engine_version": gtfs_analyzer.__version__}, 2)
+        emit({"error": "FATAL", "message": str(err), "engine_version": gtfs_analyzer.__version__}, EXIT_FATAL)
     except (OSError, ValueError, TypeError) as err:
-        emit({"error": "INPUT", "message": str(err)}, 2)
+        emit({"error": "INPUT", "message": str(err)}, EXIT_INPUT)
 
     summary = summarize(result, args.max_priorities, args.examples)
     summary["engine_version"] = gtfs_analyzer.__version__
