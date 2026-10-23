@@ -6,6 +6,9 @@
   "author": { "name": "Tacettin Tezer", "url": "https://github.com/ttezer" },
   "homepage": "https://ttezer.github.io/gtfs-analyzer/",
   "repository": "https://github.com/ttezer/gtfs-validator-plugin",
+  "privacyPolicyUrl": "https://github.com/ttezer/gtfs-validator-plugin#data",
+  "supportUrl": "https://github.com/ttezer/gtfs-validator-plugin/issues",
+  "documentationUrl": "https://github.com/ttezer/gtfs-validator-plugin#readme",
   "license": "MIT",
   "keywords": ["gtfs", "transit", "validation", "public transport"]
 }
