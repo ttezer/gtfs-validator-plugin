@@ -1,19 +1,23 @@
 ---
 name: gtfs
-description: Validate a GTFS Schedule feed (a GTFS ZIP file, a local path, or a public feed URL) with the GTFS Analyzer engine and explain publishability, scores, and the highest-priority fixes. Use when the user asks to validate, check, or analyze a GTFS feed or transit timetable ZIP, or types /gtfs.
+description: Validate a GTFS Schedule feed (a GTFS ZIP file, a local path, or a public feed URL) with the GTFS Analyzer engine and explain publishability, scores, and the highest-priority fixes. Use when the user asks to validate, check, or analyze a GTFS feed or transit timetable ZIP, asks what a GTFS rule ID means, or types /gtfs.
 ---
 
 # GTFS Validator
 
 Validate the feed with the GTFS Analyzer engine and explain its result. The engine is the
 only source of findings: never invent notices, recompute scores, or override its verdict.
+Never send the feed anywhere; the analysis runs locally.
 
 ## 1. Get the feed
 
-- An attached ZIP or a local path: use that file.
-- A public URL: download it to a local file first (for example with `curl -fL -o feed.zip <url>`).
-  If the download is blocked, ask the user to download the ZIP and attach it.
-- Nothing given: ask for a GTFS ZIP or a public feed URL.
+- **An attached ZIP or a local path**: use that file.
+- **A public URL**: download it once to a local file, for example
+  `curl -fL --max-time 120 -o feed.zip "<url>"`. In the chat's code sandbox, outbound requests
+  to most sites are blocked (the download fails with a proxy error or HTTP 403). If the download
+  fails for that reason, do not look for a workaround: ask the user to download the ZIP and
+  attach it to the conversation.
+- **Nothing given**: ask for a GTFS ZIP, or a public feed URL when running on the user's computer.
 
 ## 2. Make sure the engine is installed
 
@@ -26,10 +30,14 @@ pip install gtfs-analyzer==0.16.0
 
 If pip refuses with "externally-managed-environment": in the chat's code sandbox, add
 `--break-system-packages`; on the user's own computer, create a virtual environment instead
-(`python3 -m venv ~/.cache/gtfs-validator/venv`) and use its `python`. If installation is
-impossible (no network access to PyPI, or no wheel for this platform), tell the user and point
-them to the browser version at https://ttezer.github.io/gtfs-analyzer/, which runs the same
-engine on their device.
+(`python3 -m venv ~/.cache/gtfs-validator/venv`) and use its `python` for the install and the
+analysis. Never install into the user's system Python with `--break-system-packages`.
+
+Ready-made packages exist for Linux x86_64, macOS on Apple silicon, and Windows x86_64. On other
+platforms, such as an Intel Mac or Linux on ARM, pip falls back to building from source, which
+needs a Rust toolchain. Do not attempt that build. Tell the user and point them to the browser
+version at https://ttezer.github.io/gtfs-analyzer/, which runs the same engine on their device.
+Do the same if PyPI cannot be reached.
 
 ## 3. Run the analysis
 
@@ -38,12 +46,20 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/analyze.py <feed.zip> --lang <en|tr|fr|ja>
 ```
 
 If `${CLAUDE_SKILL_DIR}` is not replaced, use `scripts/analyze.py` relative to this file.
-Pick `--lang` from the user's language; use `en` for any other language.
 
-The script prints one JSON object. Exit code 2 with `"error": "FATAL"` means the engine could
-not analyze the feed at all (for example an unreadable ZIP): report it as an analysis failure,
-not as a verdict on the feed. Exit code 3 means the package is missing: go back to step 2.
-Exit code 4 with `"error": "INPUT"` means a bad argument or an unreadable path: fix the call.
+**Language**: pass the user's language when it is English, Turkish, French, or Japanese. For any
+other language pass `en`, then write your explanation in the user's language; keep rule IDs as
+they are.
+
+The script prints one JSON object; read it, not the raw engine output. Large feeds take longer
+(a 7 MB feed with 200,000 findings takes a few seconds), but the summary stays small.
+
+| Exit code | `error` | Meaning and what to do |
+|---|---|---|
+| 0 | — | Summary printed. Explain it (step 4). |
+| 2 | `FATAL` | The engine could not open or read the feed, for example a corrupt ZIP. Report it as an analysis failure, not as a verdict on the feed, and quote `message`. |
+| 3 | `PACKAGE_MISSING` | Go back to step 2. |
+| 4 | `INPUT` | Bad argument or unreadable path. Fix the call and run again. |
 
 ## 4. Explain the result
 
@@ -59,11 +75,33 @@ Report, in this order:
 5. **Totals**: `severity_counts` and `total_notices`. ANALYTICS and QUALITY findings describe the
    feed; they do not make it invalid by themselves.
 
-If `validation_status` is `PARTIAL`, say that coverage is incomplete and show `partial`. If
+If `validation_status` is `PARTIAL`, say first that coverage is incomplete, list
+`partial.unavailable_files`, and explain that checks depending on them did not run. If
 `version_warning` is present, mention which engine version produced the result.
+
+Keep it short: a table for the scores, one or two lines per priority, and the remaining
+priorities summarized in a sentence. Offer to run the analysis again on a corrected file.
+
+### Example
+
+> **Publishable: yes.** No blocking issues. One critical timing error should still be fixed.
+>
+> | Overall | Pub | Spec | Interop | Quality | Analytics |
+> |---|---|---|---|---|---|
+> | 95.9 | 100.0 | 100.0 | 92.6 | 92.6 | 96.2 |
+>
+> 4 stops, 1 route, 2 trips; service 2026-10-01 to 2026-12-31.
+>
+> **Fix first**
+> 1. **STM_008**: stop times go backwards (critical, 1 instance). `stop_times.txt` line 4, trip
+>    T1: arrival at S3 is 08:05:00, after 08:10:00 at S2. Times must increase along a trip.
+> 2. **STP_022**: `stop_code` is missing for all 4 stops (medium). Add short codes riders know.
+>
+> 23 findings in total: 1 critical, 1 high, 3 medium, 2 low, 16 info.
 
 ## Rule questions
 
 When the user asks what a rule ID means (for example `/gtfs TRP_002`), answer from the rule's
 `title` and `remediation` in a result you already have. Otherwise describe it from
-https://github.com/ttezer/gtfs-analyzer/blob/main/RULES.en.md and say where the text came from.
+https://github.com/ttezer/gtfs-analyzer/blob/main/RULES.en.md if you can open it, and say where
+the text came from; if you cannot, say so and offer to explain it once a feed is analyzed.
