@@ -51,8 +51,11 @@ If `${CLAUDE_SKILL_DIR}` is not replaced, use `scripts/analyze.py` relative to t
 other language pass `en`, then write your explanation in the user's language; keep rule IDs as
 they are.
 
-The script prints one JSON object; read it, not the raw engine output. Large feeds take longer
-(a 7 MB feed with 200,000 findings takes a few seconds), but the summary stays small.
+The script prints one JSON object; read it, not the raw engine output. Time and memory grow
+with the number of findings, not the file size: a feed with 200,000 findings takes seconds, but
+one with 900,000 findings took about 70 seconds and 5.5 GB of memory in the chat's code
+sandbox. The summary stays small either way. If the run is killed for lack of memory, say so
+and point the user to the browser version.
 
 | Exit code | `error` | Meaning and what to do |
 |---|---|---|
