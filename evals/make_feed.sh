@@ -38,6 +38,5 @@ service_id,monday,tuesday,wednesday,thursday,friday,saturday,sunday,start_date,e
 WK,1,1,1,1,1,0,0,20261001,20261231
 EOF
 [ -n "$skip" ] && rm "$dir/$skip"
-out="$PWD/feed.zip"
-(cd "$dir" && python3 -c "import sys, zipfile, glob; z = zipfile.ZipFile(sys.argv[1], 'w'); [z.write(f) for f in sorted(glob.glob('*.txt'))]; z.close()" "$out")
+python3 -c "import sys, zipfile, pathlib; z = zipfile.ZipFile('feed.zip', 'w'); [z.write(p, p.name) for p in sorted(pathlib.Path(sys.argv[1]).glob('*.txt'))]; z.close()" "$dir"
 rm -r "$dir"
