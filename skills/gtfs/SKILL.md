@@ -74,7 +74,9 @@ Report, in this order:
 2. **Scores**: `scores` (overall, pub, spec, interop, quality, analytics) exactly as returned.
 3. **Feed at a glance**: stop, route, and trip counts and the service window from `metrics`.
 4. **What to fix first**: `r9_priorities` in the given order. For each, give the rule ID, title,
-   how many instances, the remediation, and one concrete example (file, line, values).
+   how many instances, the remediation, and one concrete example (file, line, values). Keep the
+   engine's order: do not reorder, merge, or skip priorities above the ones you list. You may
+   note that two rules share a cause, after listing both.
 5. **Totals**: `severity_counts` and `total_notices`. ANALYTICS and QUALITY findings describe the
    feed; they do not make it invalid by themselves.
 
