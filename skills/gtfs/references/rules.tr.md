@@ -2,7 +2,7 @@
 
 🇹🇷 **Türkçe** · 🇬🇧 [English](RULES.en.md) · 🇯🇵 [日本語](RULES.ja.md) · 🇫🇷 [Français](RULES.fr.md)
 
-616 kural, 38 grup. Her kural benzersiz bir ID, önem seviyesi ve sınıf ile tanımlanır.
+619 kural, 38 grup. Her kural benzersiz bir ID, önem seviyesi ve sınıf ile tanımlanır.
 Önem seviyeleri: **KRİTİK** (yayın engelleyici) · **YÜKSEK** · **ORTA** · **DÜŞÜK** · **BİLGİ**
 Sınıflar: **Spec** (GTFS Geçerliliği) · **Interop** (GTFS Uyumluluğu) · **Quality** (GTFS Kalitesi) · **Analytics** (GTFS Analitiği)
 
@@ -33,7 +33,7 @@ Sınıflar: **Spec** (GTFS Geçerliliği) · **Interop** (GTFS Uyumluluğu) · *
 | ARC_019 | Başlıkta boş sütun adı | YÜKSEK | Quality |
 | ARC_020 | Önerilen GTFS dosyası eksik (shapes.txt veya feed_info.txt) | DÜŞÜK | Quality |
 | ARC_021 | Alanda yazdırılamaz veya sorunlu karakter | DÜŞÜK | Quality |
-| ARC_022 | Dosya satır sayısı 1.000.000 sınırını aşıyor | BİLGİ | Analytics |
+| ARC_022 | Dosya satır sayısı 1.000.000 bilgi eşiğini aşıyor | BİLGİ | Analytics |
 | ARC_023 | ZIP içinde nested ZIP dosyası — GTFS formatında desteklenmez | ORTA | Quality |
 | ARC_024 | GTFS .txt dosyası ZIP içinde alt dizinde — standart parser'lar tarafından atlanır | ORTA | Spec |
 | ARC_026 | Dosyada hatalı satır sonu karakteri | ORTA | Spec |
@@ -46,6 +46,7 @@ Sınıflar: **Spec** (GTFS Geçerliliği) · **Interop** (GTFS Uyumluluğu) · *
 | ARC_034 | Başlık satırı veri satırı olarak tekrarlanmış | YÜKSEK | Spec |
 | ARC_035 | Zorunlu dosya boş | KRİTİK | Spec |
 | ARC_036 | ZIP akış başlığı merkez diziniyle çelişiyor | DÜŞÜK | Quality |
+| ARC_037 | ID alanında ASCII dışı karakter | DÜŞÜK | Quality |
 
 ## BKR — Booking Rules (Rezervasyon Kuralları)
 
@@ -96,6 +97,7 @@ Sınıflar: **Spec** (GTFS Geçerliliği) · **Interop** (GTFS Uyumluluğu) · *
 | AGN_015 | agency_url güvensiz http kullanıyor (https önerilir) | BİLGİ | Quality |
 | AGN_016 | agency_phone bilinen yer-tutucu/şüpheli numara | BİLGİ | Quality |
 | AGN_017 | Birden çok agency farklı agency_lang taşıyor — diller arası tutarsızlık | DÜŞÜK | Interop |
+| AGN_018 | Tek kuruluşta agency_id boş | BİLGİ | Quality |
 
 ## STP — Stops (Duraklar)
 
@@ -140,6 +142,7 @@ Sınıflar: **Spec** (GTFS Geçerliliği) · **Interop** (GTFS Uyumluluğu) · *
 | STP_039 | stop_code birden fazla durakta kullanılıyor | DÜŞÜK | Quality |
 | STP_040 | Durak adı gereksiz genel stop/station sözcüğü içeriyor | DÜŞÜK | Quality |
 | STP_044 | platform_code gereksiz 'platform/track' sözcüğü içeriyor | DÜŞÜK | Quality |
+| STP_045 | platform_code var ama parent_station boş | BİLGİ | Quality |
 | STP_041 | Alt durak adı üst istasyon adını içermiyor | DÜŞÜK | Quality |
 | STP_042 | stop_url geçersiz | DÜŞÜK | Spec |
 | STP_043 | stop_access yasak bağlamda kullanılmış | ORTA | Spec |

@@ -2,7 +2,7 @@
 
 🇹🇷 [Türkçe](RULES.md) · 🇬🇧 [English](RULES.en.md) · 🇯🇵 [日本語](RULES.ja.md) · 🇫🇷 **Français**
 
-616 règles, 38 groupes. Chaque règle est identifiée par un ID unique, un niveau de gravité et une classe.
+619 règles, 38 groupes. Chaque règle est identifiée par un ID unique, un niveau de gravité et une classe.
 Niveaux de gravité : **CRITIQUE** (bloquant pour la publication) · **ÉLEVÉE** · **MOYENNE** · **FAIBLE** · **INFO**
 Classes : **Spec** (validité GTFS) · **Interop** (interopérabilité GTFS) · **Quality** (qualité GTFS) · **Analytics** (analytique GTFS)
 
@@ -33,7 +33,7 @@ Classes : **Spec** (validité GTFS) · **Interop** (interopérabilité GTFS) · 
 | ARC_019 | Nom de colonne vide dans l’en-tête | ÉLEVÉE | Quality |
 | ARC_020 | Fichier GTFS recommandé manquant (shapes.txt ou feed_info.txt) | FAIBLE | Quality |
 | ARC_021 | Caractère non imprimable ou problématique dans un champ | FAIBLE | Quality |
-| ARC_022 | Le nombre d’enregistrements dépasse la limite de 1 000 000 | INFO | Analytics |
+| ARC_022 | Le nombre d’enregistrements dépasse le seuil indicatif de 1 000 000 | INFO | Analytics |
 | ARC_023 | Fichier ZIP imbriqué dans l’archive GTFS | MOYENNE | Quality |
 | ARC_024 | Fichier GTFS .txt dans un sous-répertoire (il ne sera pas analysé) | MOYENNE | Spec |
 | ARC_026 | Caractères de fin de ligne mal formés | MOYENNE | Spec |
@@ -46,6 +46,7 @@ Classes : **Spec** (validité GTFS) · **Interop** (interopérabilité GTFS) · 
 | ARC_034 | Ligne d’en-tête répétée comme enregistrement de données | ÉLEVÉE | Spec |
 | ARC_035 | Fichier obligatoire vide | CRITIQUE | Spec |
 | ARC_036 | En-tête de flux ZIP en contradiction avec le répertoire central | FAIBLE | Quality |
+| ARC_037 | Caractère non ASCII dans un champ d’identifiant | FAIBLE | Quality |
 
 ## BKR — Règles de réservation
 
@@ -96,6 +97,7 @@ Classes : **Spec** (validité GTFS) · **Interop** (interopérabilité GTFS) · 
 | AGN_015 | agency_url utilise http non sécurisé | INFO | Quality |
 | AGN_016 | agency_phone suspect ou factice | INFO | Quality |
 | AGN_017 | agency_lang incohérent entre agences | FAIBLE | Interop |
+| AGN_018 | agency_id vide dans un flux à agence unique | INFO | Quality |
 
 ## STP — Arrêts
 
@@ -140,6 +142,7 @@ Classes : **Spec** (validité GTFS) · **Interop** (interopérabilité GTFS) · 
 | STP_039 | stop_code en double | FAIBLE | Quality |
 | STP_040 | Le nom de l’arrêt contient un mot redondant (arrêt ou station) | FAIBLE | Quality |
 | STP_044 | platform_code contient un mot redondant (quai ou voie) | FAIBLE | Quality |
+| STP_045 | platform_code sans parent_station | INFO | Quality |
 | STP_041 | Le nom de l’arrêt enfant ne reprend pas celui de la station parente | FAIBLE | Quality |
 | STP_042 | stop_url invalide | FAIBLE | Spec |
 | STP_043 | stop_access utilisé dans un contexte interdit | MOYENNE | Spec |

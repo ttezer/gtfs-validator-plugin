@@ -2,7 +2,7 @@
 
 🇹🇷 [Türkçe](RULES.md) · 🇬🇧 **English** · 🇯🇵 [日本語](RULES.ja.md) · 🇫🇷 [Français](RULES.fr.md)
 
-616 rules, 38 groups. Each rule is identified by a unique ID, severity level, and class.
+619 rules, 38 groups. Each rule is identified by a unique ID, severity level, and class.
 Severity levels: **CRITICAL** (publish blocker) · **HIGH** · **MEDIUM** · **LOW** · **INFO**
 Classes: **Spec** (GTFS Validity) · **Interop** (GTFS Interoperability) · **Quality** (GTFS Quality) · **Analytics** (GTFS Analytics)
 
@@ -33,7 +33,7 @@ Classes: **Spec** (GTFS Validity) · **Interop** (GTFS Interoperability) · **Qu
 | ARC_019 | Empty column name in header | HIGH | Quality |
 | ARC_020 | Recommended GTFS file missing (shapes.txt or feed_info.txt) | LOW | Quality |
 | ARC_021 | Non-printable or problematic character in field | LOW | Quality |
-| ARC_022 | File row count exceeds 1,000,000 limit | INFO | Analytics |
+| ARC_022 | File row count exceeds the 1,000,000 informational threshold | INFO | Analytics |
 | ARC_023 | Nested ZIP file inside GTFS archive | MEDIUM | Quality |
 | ARC_024 | GTFS .txt file in subdirectory (will not be parsed) | MEDIUM | Spec |
 | ARC_026 | Malformed end-of-line characters | MEDIUM | Spec |
@@ -46,6 +46,7 @@ Classes: **Spec** (GTFS Validity) · **Interop** (GTFS Interoperability) · **Qu
 | ARC_034 | Header row repeated as a data row | HIGH | Spec |
 | ARC_035 | Required file is empty | CRITICAL | Spec |
 | ARC_036 | ZIP stream header contradicts the central directory | LOW | Quality |
+| ARC_037 | Non-ASCII character in an ID field | LOW | Quality |
 
 ## BKR — Booking Rules
 
@@ -96,6 +97,7 @@ Classes: **Spec** (GTFS Validity) · **Interop** (GTFS Interoperability) · **Qu
 | AGN_015 | agency_url uses insecure http | INFO | Quality |
 | AGN_016 | agency_phone suspect/placeholder | INFO | Quality |
 | AGN_017 | Inconsistent agency_lang across agencies | LOW | Interop |
+| AGN_018 | agency_id empty in a single-agency feed | INFO | Quality |
 
 ## STP — Stops
 
@@ -140,6 +142,7 @@ Classes: **Spec** (GTFS Validity) · **Interop** (GTFS Interoperability) · **Qu
 | STP_039 | stop_code is duplicated | LOW | Quality |
 | STP_040 | Stop name contains a redundant stop/station word | LOW | Quality |
 | STP_044 | platform_code contains a redundant platform/track word | LOW | Quality |
+| STP_045 | platform_code without parent_station | INFO | Quality |
 | STP_041 | Child stop name does not include the parent station name | LOW | Quality |
 | STP_042 | stop_url is invalid | LOW | Spec |
 | STP_043 | stop_access used in a forbidden context | MEDIUM | Spec |

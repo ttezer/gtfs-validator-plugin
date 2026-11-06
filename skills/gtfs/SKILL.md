@@ -22,10 +22,10 @@ Never send the feed anywhere; the analysis runs locally.
 ## 2. Make sure the engine is installed
 
 Run `python3 -c "import gtfs_analyzer; print(gtfs_analyzer.__version__)"`. If that fails or
-prints a version other than 0.16.0, install the pinned version:
+prints a version other than 0.19.0, install the pinned version:
 
 ```
-pip install gtfs-analyzer==0.16.0
+pip install gtfs-analyzer==0.19.0
 ```
 
 If pip refuses with "externally-managed-environment": in the chat's code sandbox, add
@@ -110,7 +110,7 @@ When the user asks what a rule ID means (for example `/gtfs TRP_002`):
 
 1. If a result you already have contains the rule, answer from its `title`, `remediation`, and
    examples.
-2. Otherwise look the rule up in the rule list for engine 0.16.0, in the user's language
+2. Otherwise look the rule up in the rule list for engine 0.19.0, in the user's language
    (`references/rules.<en|tr|fr|ja>.md`; `en` for other languages). Do not read the whole file;
    search for the row, matching the ID exactly:
 
