@@ -2,7 +2,7 @@
 
 🇹🇷 [Türkçe](RULES.md) · 🇬🇧 **English** · 🇯🇵 [日本語](RULES.ja.md) · 🇫🇷 [Français](RULES.fr.md)
 
-619 rules, 38 groups. Each rule is identified by a unique ID, severity level, and class.
+621 rules, 38 groups. Each rule is identified by a unique ID, severity level, and class.
 Severity levels: **CRITICAL** (publish blocker) · **HIGH** · **MEDIUM** · **LOW** · **INFO**
 Classes: **Spec** (GTFS Validity) · **Interop** (GTFS Interoperability) · **Quality** (GTFS Quality) · **Analytics** (GTFS Analytics)
 
@@ -121,7 +121,7 @@ Classes: **Spec** (GTFS Validity) · **Interop** (GTFS Interoperability) · **Qu
 | STP_016 | Two stops at identical coordinates | MEDIUM | Quality |
 | STP_017 | Two stops too close together | LOW | Quality |
 | STP_018 | No stops found | CRITICAL | Spec |
-| STP_019 | stop_name too long | LOW | Quality |
+| STP_019 | stop_name too long | INFO | Quality |
 | STP_020 | Stop with no trips | MEDIUM | Analytics |
 | STP_021 | Boarding area parent is not a platform | HIGH | Quality |
 | STP_022 | stop_code missing | MEDIUM | Quality |
@@ -137,12 +137,14 @@ Classes: **Spec** (GTFS Validity) · **Interop** (GTFS Interoperability) · **Qu
 | STP_034 | stop_url matches agency URL | LOW | Quality |
 | STP_035 | stop_url matches route URL | LOW | Quality |
 | STP_036 | Station has parent_station (invalid) | LOW | Spec |
-| STP_037 | Some stops have not set wheelchair boarding | MEDIUM | Quality |
+| STP_037 | Some stops have not set wheelchair boarding | INFO | Quality |
 | STP_038 | No stops report wheelchair boarding | INFO | Quality |
 | STP_039 | stop_code is duplicated | LOW | Quality |
 | STP_040 | Stop name contains a redundant stop/station word | LOW | Quality |
 | STP_044 | platform_code contains a redundant platform/track word | LOW | Quality |
 | STP_045 | platform_code without parent_station | INFO | Quality |
+| STP_046 | Stop without parent_station right next to a station | LOW | Quality |
+| STP_047 | Two station records for the same place | LOW | Quality |
 | STP_041 | Child stop name does not include the parent station name | LOW | Quality |
 | STP_042 | stop_url is invalid | LOW | Spec |
 | STP_043 | stop_access used in a forbidden context | MEDIUM | Spec |
@@ -160,7 +162,7 @@ Classes: **Spec** (GTFS Validity) · **Interop** (GTFS Interoperability) · **Qu
 | RTS_007 | route_text_color invalid hex color | MEDIUM | Spec |
 | RTS_008 | Route color and text color have low contrast | MEDIUM | Quality |
 | RTS_010 | route_short_name too long | LOW | Quality |
-| RTS_011 | route_long_name too long | LOW | Quality |
+| RTS_011 | route_long_name too long | INFO | Quality |
 | RTS_012 | Route with no trips | MEDIUM | Quality |
 | RTS_013 | continuous_pickup invalid | LOW | Spec |
 | RTS_016 | Route with no active service days | LOW | Quality |
@@ -206,7 +208,7 @@ Classes: **Spec** (GTFS Validity) · **Interop** (GTFS Interoperability) · **Qu
 | TRP_024 | Inconsistent route type within block | LOW | Quality |
 | TRP_025 | High proportion of trips without wheelchair accessibility information | INFO | Quality |
 | TRP_026 | Trip with empty active-date set | MEDIUM | Analytics |
-| TRP_028 | Some trips have not set wheelchair accessibility | MEDIUM | Quality |
+| TRP_028 | Some trips have not set wheelchair accessibility | INFO | Quality |
 | TRP_029 | No trips report wheelchair accessibility | INFO | Quality |
 | TRP_031 | route_id missing | CRITICAL | Spec |
 | TRP_034 | safe_duration field is not a number | MEDIUM | Spec |
@@ -288,9 +290,9 @@ Classes: **Spec** (GTFS Validity) · **Interop** (GTFS Interoperability) · **Qu
 | LOC_003 | Feature missing required 'id' property | CRITICAL | Spec |
 | LOC_004 | Polygon ring is not closed | MEDIUM | Spec |
 | LOC_005 | FeatureCollection has no features | LOW | Quality |
-| LOC_006 | Polygon area exceeds 500km² | MEDIUM | Quality |
+| LOC_006 | Polygon area exceeds 500km² | INFO | Quality |
 | LOC_007 | Duplicate feature 'id' in FeatureCollection | MEDIUM | Spec |
-| LOC_008 | Feature 'type' member missing or not \"Feature\ | MEDIUM | Spec |
+| LOC_008 | Feature 'type' member missing or not "Feature" | MEDIUM | Spec |
 | LOC_009 | Feature 'properties' object missing | MEDIUM | Spec |
 | LOC_011 | Invalid polygon: a ring self-intersects or a hole lies outside | HIGH | Spec |
 | LOC_010 | Geometry 'coordinates' missing or not an array — the zone geometry cannot be resolved | CRITICAL | Spec |
@@ -306,7 +308,7 @@ Classes: **Spec** (GTFS Validity) · **Interop** (GTFS Interoperability) · **Qu
 | CAL_005 | start_date is after end_date | CRITICAL | Interop |
 | CAL_006 | Weekly schedule has all days disabled | INFO | Quality |
 | CAL_007 | Gap in service period | INFO | Analytics |
-| CAL_008 | Service expires soon | HIGH | Analytics |
+| CAL_008 | Service expires soon | INFO | Analytics |
 | CAL_009 | All feed services have expired | INFO | Analytics |
 | CAL_010 | Service has too few active days | MEDIUM | Analytics |
 | CAL_011 | Unused service | LOW | Quality |
@@ -317,7 +319,7 @@ Classes: **Spec** (GTFS Validity) · **Interop** (GTFS Interoperability) · **Qu
 | CAL_016 | Service extends to a very distant future date | INFO | Quality |
 | CAL_017 | Calendar has not yet started (all active dates in the future) | INFO | Analytics |
 | CAL_018 | Service has no active weekdays (all days 0, none overridden by calendar_dates) | INFO | Quality |
-| CAL_020 | Feed validity window exceeds 5 years | LOW | Quality |
+| CAL_020 | Feed validity window exceeds 5 years | INFO | Quality |
 | CAL_021 | Active today but no service in the upcoming days | INFO | Analytics |
 | CAL_022 | service_id missing | CRITICAL | Spec |
 | CAL_023 | Calendar end_date far in the future (suspect) | MEDIUM | Quality |
@@ -332,7 +334,7 @@ Classes: **Spec** (GTFS Validity) · **Interop** (GTFS Interoperability) · **Qu
 | CLD_002 | date invalid format | CRITICAL | Spec |
 | CLD_003 | exception_type missing or invalid | CRITICAL | Spec |
 | CLD_004 | Calendar-dates-only service has no active dates | HIGH | Quality |
-| CLD_005 | Date out of range | CRITICAL | Quality |
+| CLD_005 | Date out of range | INFO | Quality |
 | CLD_006 | Too many exception days | INFO | Analytics |
 | CLD_007 | Excessive calendar exceptions | INFO | Analytics |
 
@@ -629,7 +631,7 @@ Classes: **Spec** (GTFS Validity) · **Interop** (GTFS Interoperability) · **Qu
 | FIN_017 | Feed expires in the very distant future | INFO | Quality |
 | FIN_018 | Both feed_contact_email and feed_contact_url missing | LOW | Quality |
 | FIN_019 | Feed validity expires within 7 days | LOW | Quality |
-| FIN_020 | Feed validity window shorter than 7 days | MEDIUM | Quality |
+| FIN_020 | Feed validity window shorter than 7 days | INFO | Quality |
 
 ## TRN — Translations
 

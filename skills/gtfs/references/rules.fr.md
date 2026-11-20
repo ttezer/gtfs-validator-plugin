@@ -2,7 +2,7 @@
 
 🇹🇷 [Türkçe](RULES.md) · 🇬🇧 [English](RULES.en.md) · 🇯🇵 [日本語](RULES.ja.md) · 🇫🇷 **Français**
 
-619 règles, 38 groupes. Chaque règle est identifiée par un ID unique, un niveau de gravité et une classe.
+621 règles, 38 groupes. Chaque règle est identifiée par un ID unique, un niveau de gravité et une classe.
 Niveaux de gravité : **CRITIQUE** (bloquant pour la publication) · **ÉLEVÉE** · **MOYENNE** · **FAIBLE** · **INFO**
 Classes : **Spec** (validité GTFS) · **Interop** (interopérabilité GTFS) · **Quality** (qualité GTFS) · **Analytics** (analytique GTFS)
 
@@ -121,7 +121,7 @@ Classes : **Spec** (validité GTFS) · **Interop** (interopérabilité GTFS) · 
 | STP_016 | Deux arrêts aux coordonnées identiques | MOYENNE | Quality |
 | STP_017 | Deux arrêts trop proches l’un de l’autre | FAIBLE | Quality |
 | STP_018 | Aucun arrêt trouvé | CRITIQUE | Spec |
-| STP_019 | stop_name trop long | FAIBLE | Quality |
+| STP_019 | stop_name trop long | INFO | Quality |
 | STP_020 | Arrêt sans aucune course | MOYENNE | Analytics |
 | STP_021 | Le parent de la zone d’embarquement n’est pas un quai | ÉLEVÉE | Quality |
 | STP_022 | stop_code manquant | MOYENNE | Quality |
@@ -137,12 +137,14 @@ Classes : **Spec** (validité GTFS) · **Interop** (interopérabilité GTFS) · 
 | STP_034 | stop_url identique à l’URL de l’agence | FAIBLE | Quality |
 | STP_035 | stop_url identique à l’URL de la ligne | FAIBLE | Quality |
 | STP_036 | La station possède un parent_station (invalide) | FAIBLE | Spec |
-| STP_037 | Certains arrêts n’indiquent pas l’accessibilité en fauteuil roulant | MOYENNE | Quality |
+| STP_037 | Certains arrêts n’indiquent pas l’accessibilité en fauteuil roulant | INFO | Quality |
 | STP_038 | Aucun arrêt n’indique l’accessibilité en fauteuil roulant | INFO | Quality |
 | STP_039 | stop_code en double | FAIBLE | Quality |
 | STP_040 | Le nom de l’arrêt contient un mot redondant (arrêt ou station) | FAIBLE | Quality |
 | STP_044 | platform_code contient un mot redondant (quai ou voie) | FAIBLE | Quality |
 | STP_045 | platform_code sans parent_station | INFO | Quality |
+| STP_046 | Arrêt sans parent_station juste à côté d’une station | FAIBLE | Quality |
+| STP_047 | Deux enregistrements de station pour le même lieu | FAIBLE | Quality |
 | STP_041 | Le nom de l’arrêt enfant ne reprend pas celui de la station parente | FAIBLE | Quality |
 | STP_042 | stop_url invalide | FAIBLE | Spec |
 | STP_043 | stop_access utilisé dans un contexte interdit | MOYENNE | Spec |
@@ -160,7 +162,7 @@ Classes : **Spec** (validité GTFS) · **Interop** (interopérabilité GTFS) · 
 | RTS_007 | route_text_color n’est pas une couleur hexadécimale valide | MOYENNE | Spec |
 | RTS_008 | Contraste insuffisant entre la couleur de la ligne et celle du texte | MOYENNE | Quality |
 | RTS_010 | route_short_name trop long | FAIBLE | Quality |
-| RTS_011 | route_long_name trop long | FAIBLE | Quality |
+| RTS_011 | route_long_name trop long | INFO | Quality |
 | RTS_012 | Ligne sans aucune course | MOYENNE | Quality |
 | RTS_013 | continuous_pickup invalide | FAIBLE | Spec |
 | RTS_016 | Ligne sans aucun jour de service actif | FAIBLE | Quality |
@@ -206,7 +208,7 @@ Classes : **Spec** (validité GTFS) · **Interop** (interopérabilité GTFS) · 
 | TRP_024 | Type de ligne incohérent au sein de l’enchaînement | FAIBLE | Quality |
 | TRP_025 | Forte proportion de courses sans information d’accessibilité en fauteuil roulant | INFO | Quality |
 | TRP_026 | Course dont l’ensemble des dates actives est vide | MOYENNE | Analytics |
-| TRP_028 | Certaines courses n’indiquent pas l’accessibilité en fauteuil roulant | MOYENNE | Quality |
+| TRP_028 | Certaines courses n’indiquent pas l’accessibilité en fauteuil roulant | INFO | Quality |
 | TRP_029 | Aucune course n’indique l’accessibilité en fauteuil roulant | INFO | Quality |
 | TRP_031 | route_id manquant | CRITIQUE | Spec |
 | TRP_034 | Le champ safe_duration n’est pas un nombre | MOYENNE | Spec |
@@ -288,7 +290,7 @@ Classes : **Spec** (validité GTFS) · **Interop** (interopérabilité GTFS) · 
 | LOC_003 | L’objet Feature n’a pas la propriété obligatoire « id » | CRITIQUE | Spec |
 | LOC_004 | L’anneau du polygone n’est pas fermé | MOYENNE | Spec |
 | LOC_005 | La FeatureCollection ne contient aucun objet Feature | FAIBLE | Quality |
-| LOC_006 | La superficie du polygone dépasse 500 km² | MOYENNE | Quality |
+| LOC_006 | La superficie du polygone dépasse 500 km² | INFO | Quality |
 | LOC_007 | Identifiant « id » d’objet Feature en double dans la FeatureCollection | MOYENNE | Spec |
 | LOC_008 | Membre « type » absent ou différent de « Feature » | MOYENNE | Spec |
 | LOC_009 | Objet « properties » manquant dans l’objet Feature | MOYENNE | Spec |
@@ -306,7 +308,7 @@ Classes : **Spec** (validité GTFS) · **Interop** (interopérabilité GTFS) · 
 | CAL_005 | start_date postérieure à end_date | CRITIQUE | Interop |
 | CAL_006 | Tous les jours de la grille hebdomadaire sont désactivés | INFO | Quality |
 | CAL_007 | Interruption dans la période de service | INFO | Analytics |
-| CAL_008 | Le service expire prochainement | ÉLEVÉE | Analytics |
+| CAL_008 | Le service expire prochainement | INFO | Analytics |
 | CAL_009 | Tous les services du jeu de données ont expiré | INFO | Analytics |
 | CAL_010 | Le service compte trop peu de jours actifs | MOYENNE | Analytics |
 | CAL_011 | Service inutilisé | FAIBLE | Quality |
@@ -317,7 +319,7 @@ Classes : **Spec** (validité GTFS) · **Interop** (interopérabilité GTFS) · 
 | CAL_016 | Le service s’étend jusqu’à une date très lointaine | INFO | Quality |
 | CAL_017 | Le calendrier n’a pas encore commencé (toutes les dates actives sont futures) | INFO | Analytics |
 | CAL_018 | Le service n’a aucun jour de semaine actif (tous les jours à 0, aucun remplacé par calendar_dates) | INFO | Quality |
-| CAL_020 | La fenêtre de validité du jeu de données dépasse 5 ans | FAIBLE | Quality |
+| CAL_020 | La fenêtre de validité du jeu de données dépasse 5 ans | INFO | Quality |
 | CAL_021 | Actif aujourd’hui mais aucun service dans les jours à venir | INFO | Analytics |
 | CAL_022 | service_id manquant | CRITIQUE | Spec |
 | CAL_023 | end_date du calendrier très lointaine (suspect) | MOYENNE | Quality |
@@ -332,7 +334,7 @@ Classes : **Spec** (validité GTFS) · **Interop** (interopérabilité GTFS) · 
 | CLD_002 | Format de date invalide | CRITIQUE | Spec |
 | CLD_003 | exception_type manquant ou invalide | CRITIQUE | Spec |
 | CLD_004 | Un service défini uniquement par calendar_dates n’a aucune date active | ÉLEVÉE | Quality |
-| CLD_005 | Date hors plage | CRITIQUE | Quality |
+| CLD_005 | Date hors plage | INFO | Quality |
 | CLD_006 | Trop de jours d’exception | INFO | Analytics |
 | CLD_007 | Nombre excessif d’exceptions de calendrier | INFO | Analytics |
 
@@ -629,7 +631,7 @@ Classes : **Spec** (validité GTFS) · **Interop** (interopérabilité GTFS) · 
 | FIN_017 | Le jeu de données expire dans un futur très lointain | INFO | Quality |
 | FIN_018 | feed_contact_email et feed_contact_url tous deux manquants | FAIBLE | Quality |
 | FIN_019 | La validité du jeu de données expire sous 7 jours | FAIBLE | Quality |
-| FIN_020 | Fenêtre de validité du jeu de données inférieure à 7 jours | MOYENNE | Quality |
+| FIN_020 | Fenêtre de validité du jeu de données inférieure à 7 jours | INFO | Quality |
 
 ## TRN — Traductions
 

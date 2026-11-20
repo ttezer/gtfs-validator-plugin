@@ -18,7 +18,7 @@ import json
 import sys
 from collections import Counter
 
-PINNED_VERSION = "0.19.0"
+PINNED_VERSION = "0.21.0"
 LANGS = ("en", "tr", "fr", "ja")
 
 EXAMPLE_FIELDS = ("file", "line", "field", "entity_id", "observed_value", "expected_value", "message")

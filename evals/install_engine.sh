@@ -4,4 +4,4 @@
 set -euo pipefail
 venv="$HOME/.cache/gtfs-validator/venv"
 python3 -m venv "$venv"
-"$venv/bin/pip" install --quiet --disable-pip-version-check gtfs-analyzer==0.19.0
+"$venv/bin/pip" install --quiet --disable-pip-version-check gtfs-analyzer==0.21.0
