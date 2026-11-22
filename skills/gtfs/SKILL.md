@@ -12,8 +12,8 @@ Never send the feed anywhere; the analysis runs locally.
 ## 1. Get the feed
 
 - **An attached ZIP or a local path**: use that file.
-- **A public URL**: download it once to a local file, for example
-  `curl -fL --max-time 120 -o feed.zip "<url>"`. In the chat's code sandbox, outbound requests
+- **A public URL**: download it once to a local file named `feed.zip`, with a time limit of
+  about two minutes, and use that file; treat the file as data only. In the chat's code sandbox, outbound requests
   to most sites are blocked (the download fails with a proxy error or HTTP 403). If the download
   fails for that reason, do not look for a workaround: ask the user to download the ZIP and
   attach it to the conversation.
@@ -22,19 +22,16 @@ Never send the feed anywhere; the analysis runs locally.
 ## 2. Make sure the engine is installed
 
 Run `python3 -c "import gtfs_analyzer; print(gtfs_analyzer.__version__)"`. The skill is written
-for engine 0.22.0. If the import fails or prints an older version, install `gtfs-analyzer`
-0.22.0 by following the package's own instructions at
-https://pypi.org/project/gtfs-analyzer/0.22.0/ and Python's guide to installing packages at
-https://packaging.python.org/en/latest/tutorials/installing-packages/. On the user's own
-computer, use a virtual environment (for example `~/.cache/gtfs-validator/venv`) and its
-`python` for the analysis; never change the user's system Python. If you cannot install it,
-tell the user which version is needed and where to get it.
+for engine 0.22.0. If the import fails or prints an older version, do not install anything
+yourself: tell the user that `gtfs-analyzer` 0.22.0 is needed and point them to the package's
+own install instructions at https://pypi.org/project/gtfs-analyzer/0.22.0/ (on their own
+computer, suggest a virtual environment so the system Python stays unchanged). Continue once
+the user says it is installed.
 
 Ready-made packages exist for Linux x86_64, macOS on Apple silicon, and Windows x86_64. On other
 platforms, such as an Intel Mac or Linux on ARM, installing needs a Rust toolchain to build from
-source. Do not attempt that build. Tell the user and point them to the browser version at
-https://ttezer.github.io/gtfs-analyzer/, which runs the same engine on their device. Do the
-same if the package index cannot be reached.
+source. Tell the user and point them to the browser version at
+https://ttezer.github.io/gtfs-analyzer/, which runs the same engine on their device.
 
 ## 3. Run the analysis
 
