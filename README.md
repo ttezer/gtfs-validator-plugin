@@ -22,7 +22,7 @@ and Japanese.
 
 ## Requirements
 
-- Code execution must be turned on in your settings, because the analysis runs as a script.
+- Code execution must be turned on in your settings, because the analysis runs as a Python command.
 - A ready-made engine package exists for Linux x86_64, macOS on Apple silicon, and Windows
   x86_64. On other platforms, use the browser version at https://ttezer.github.io/gtfs-analyzer/,
   which runs the same engine on your device.
@@ -32,18 +32,11 @@ and Japanese.
 ## Data
 
 The analysis runs where Claude runs: in Claude's code sandbox on claude.ai, or on your own
-computer in Claude Code. The plugin installs the open-source `gtfs-analyzer` package from PyPI
-(pinned version) and, when you give a URL, downloads the feed from that URL. On your own
-computer the package is installed into a separate environment at
-`~/.cache/gtfs-validator/venv`. The feed is not sent to any server operated by this plugin, and
+computer in Claude Code. It uses the open-source `gtfs-analyzer` package, version 0.22.0
+(see https://pypi.org/project/gtfs-analyzer/ for how to install it), and, when you give a URL,
+downloads the feed from that URL. On your own computer, install the package into a separate
+environment, such as `~/.cache/gtfs-validator/venv`. The feed is not sent to any server operated by this plugin, and
 nothing is stored.
-
-## Development
-
-- `tests/`: script tests against a small fixture feed; run them with pytest in an environment
-  where `gtfs-analyzer` is installed.
-- `evals/`: behavior evals for the skill; the scaffold scripts build the test feeds and install
-  the engine.
 
 ## License
 

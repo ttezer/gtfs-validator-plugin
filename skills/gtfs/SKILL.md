@@ -21,37 +21,32 @@ Never send the feed anywhere; the analysis runs locally.
 
 ## 2. Make sure the engine is installed
 
-Run `python3 -c "import gtfs_analyzer; print(gtfs_analyzer.__version__)"`. If that fails or
-prints a version other than 0.21.0, install the pinned version:
-
-```
-pip install gtfs-analyzer==0.21.0
-```
-
-If pip refuses with "externally-managed-environment": in the chat's code sandbox, add
-`--break-system-packages`; on the user's own computer, create a virtual environment instead
-(`python3 -m venv ~/.cache/gtfs-validator/venv`) and use its `python` for the install and the
-analysis. Never install into the user's system Python with `--break-system-packages`.
+Run `python3 -c "import gtfs_analyzer; print(gtfs_analyzer.__version__)"`. The skill is written
+for engine 0.22.0. If the import fails or prints an older version, install `gtfs-analyzer`
+0.22.0 by following the package's own instructions at
+https://pypi.org/project/gtfs-analyzer/0.22.0/ and Python's guide to installing packages at
+https://packaging.python.org/en/latest/tutorials/installing-packages/. On the user's own
+computer, use a virtual environment (for example `~/.cache/gtfs-validator/venv`) and its
+`python` for the analysis; never change the user's system Python. If you cannot install it,
+tell the user which version is needed and where to get it.
 
 Ready-made packages exist for Linux x86_64, macOS on Apple silicon, and Windows x86_64. On other
-platforms, such as an Intel Mac or Linux on ARM, pip falls back to building from source, which
-needs a Rust toolchain. Do not attempt that build. Tell the user and point them to the browser
-version at https://ttezer.github.io/gtfs-analyzer/, which runs the same engine on their device.
-Do the same if PyPI cannot be reached.
+platforms, such as an Intel Mac or Linux on ARM, installing needs a Rust toolchain to build from
+source. Do not attempt that build. Tell the user and point them to the browser version at
+https://ttezer.github.io/gtfs-analyzer/, which runs the same engine on their device. Do the
+same if the package index cannot be reached.
 
 ## 3. Run the analysis
 
 ```
-python3 ${CLAUDE_SKILL_DIR}/scripts/analyze.py <feed.zip> --lang <en|tr|fr|ja>
+python3 -m gtfs_analyzer.summary <feed.zip> --lang <en|tr|fr|ja> --expect-version 0.22.0
 ```
-
-If `${CLAUDE_SKILL_DIR}` is not replaced, use `scripts/analyze.py` relative to this file.
 
 **Language**: pass the user's language when it is English, Turkish, French, or Japanese. For any
 other language pass `en`, then write your explanation in the user's language; keep rule IDs as
 they are.
 
-The script prints one JSON object; read it, not the raw engine output. Time and memory grow
+The command prints one JSON object; read it, not the raw engine output. Time and memory grow
 with the number of findings, not the file size: a feed with 200,000 findings takes seconds, but
 one with 900,000 findings took about 70 seconds and 5.5 GB of memory in the chat's code
 sandbox. The summary stays small either way. If the run is killed for lack of memory, say so
@@ -61,8 +56,8 @@ and point the user to the browser version.
 |---|---|---|
 | 0 | — | Summary printed. Explain it (step 4). |
 | 2 | `FATAL` | The engine could not open or read the feed, for example a corrupt ZIP. Report it as an analysis failure, not as a verdict on the feed, and quote `message`. |
-| 3 | `PACKAGE_MISSING` | Go back to step 2. |
 | 4 | `INPUT` | Bad argument or unreadable path. Fix the call and run again. |
+| 1 | — | `No module named gtfs_analyzer.summary` (or `gtfs_analyzer`): the engine is missing or older than 0.22.0. Go back to step 2. |
 
 ## 4. Explain the result
 
@@ -110,7 +105,7 @@ When the user asks what a rule ID means (for example `/gtfs TRP_002`):
 
 1. If a result you already have contains the rule, answer from its `title`, `remediation`, and
    examples.
-2. Otherwise look the rule up in the rule list for engine 0.21.0, in the user's language
+2. Otherwise look the rule up in the rule list for engine 0.22.0, in the user's language
    (`references/rules.<en|tr|fr|ja>.md`; `en` for other languages). Do not read the whole file;
    search for the row, matching the ID exactly:
 
