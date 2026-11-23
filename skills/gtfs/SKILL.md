@@ -103,14 +103,14 @@ When the user asks what a rule ID means (for example `/gtfs TRP_002`):
 1. If a result you already have contains the rule, answer from its `title`, `remediation`, and
    examples.
 2. Otherwise look the rule up in the rule list for engine 0.22.0, in the user's language
-   (`references/rules.<en|tr|fr|ja>.md`; `en` for other languages). Do not read the whole file;
-   search for the row, matching the ID exactly:
+   (`references/<en|tr|fr|ja>/`, a few files per language; `en` for other languages). Do not
+   read the files; search the folder for the row, matching the ID exactly:
 
    ```
-   grep -F "| TRP_002 |" ${CLAUDE_SKILL_DIR}/references/rules.en.md
+   grep -rF "| TRP_002 |" ${CLAUDE_SKILL_DIR}/references/en/
    ```
 
-   The row gives the title, severity, and class. The `##` heading above it names the rule group.
-   The list has no remediation text: explain what the title means for the feed and say that the
-   exact fix and affected rows come from analyzing a feed.
-3. If the ID is not in the list, say that the engine has no such rule. Do not guess one.
+   The row gives the title, severity, and class. The `##` heading above it names the rule
+   group. The list has no remediation text: explain what the title means for the feed and say
+   that the exact fix and affected rows come from analyzing a feed.
+3. If no row matches, say that the engine has no such rule. Do not guess one.
