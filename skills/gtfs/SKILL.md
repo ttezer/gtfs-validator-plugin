@@ -22,9 +22,9 @@ Never send the feed anywhere; the analysis runs locally.
 ## 2. Make sure the engine is installed
 
 Run `python3 -c "import gtfs_analyzer; print(gtfs_analyzer.__version__)"`. The skill is written
-for engine 0.22.0. If the import fails or prints an older version, do not install anything
-yourself: tell the user that `gtfs-analyzer` 0.22.0 is needed and point them to the package's
-own install instructions at https://pypi.org/project/gtfs-analyzer/0.22.0/ (on their own
+for engine 0.23.0. If the import fails or prints an older version, do not install anything
+yourself: tell the user that `gtfs-analyzer` 0.23.0 is needed and point them to the package's
+own install instructions at https://pypi.org/project/gtfs-analyzer/0.23.0/ (on their own
 computer, suggest a virtual environment so the system Python stays unchanged). Continue once
 the user says it is installed.
 
@@ -36,7 +36,7 @@ https://ttezer.github.io/gtfs-analyzer/, which runs the same engine on their dev
 ## 3. Run the analysis
 
 ```
-python3 -m gtfs_analyzer.summary <feed.zip> --lang <en|tr|fr|ja> --expect-version 0.22.0
+python3 -m gtfs_analyzer.summary <feed.zip> --lang <en|tr|fr|ja> --expect-version 0.23.0
 ```
 
 **Language**: pass the user's language when it is English, Turkish, French, or Japanese. For any
@@ -102,7 +102,7 @@ When the user asks what a rule ID means (for example `/gtfs TRP_002`):
 
 1. If a result you already have contains the rule, answer from its `title`, `remediation`, and
    examples.
-2. Otherwise look the rule up in the rule list for engine 0.22.0, in the user's language
+2. Otherwise look the rule up in the rule list for engine 0.23.0, in the user's language
    (`references/<en|tr|fr|ja>/`, a few files per language; `en` for other languages). Do not
    read the files; search the folder for the row, matching the ID exactly:
 

@@ -19,6 +19,20 @@
 | TRN_015 | record_id and field_value are both empty | HIGH | Spec |
 | TRN_016 | field_value matches no record — the translation is never applied | MEDIUM | Spec |
 
+## LIC — Licensing
+
+| Rule | Title | Severity | Class |
+|---|---|---|---|
+| LIC_001 | License value missing | CRITICAL | Spec |
+| LIC_002 | Two license values supplied | CRITICAL | Spec |
+| LIC_003 | Unknown licensed table | MEDIUM | Interop |
+| LIC_004 | Duplicate licensed table | CRITICAL | Spec |
+| LIC_005 | Licensed table absent | INFO | Quality |
+| LIC_006 | Feed license missing | INFO | Quality |
+| LIC_007 | SPDX license identifier not listed | INFO | Quality |
+| LIC_008 | Licensed table spelling conflicts | CRITICAL | Interop |
+| LIC_009 | Custom license URL invalid | CRITICAL | Spec |
+
 ## ATR — Attributions
 
 | Rule | Title | Severity | Class |

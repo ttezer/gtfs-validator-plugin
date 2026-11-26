@@ -32,7 +32,7 @@ and Japanese.
 ## Data
 
 The analysis runs where Claude runs: in Claude's code sandbox on claude.ai, or on your own
-computer in Claude Code. It uses the open-source `gtfs-analyzer` package, version 0.22.0
+computer in Claude Code. It uses the open-source `gtfs-analyzer` package, version 0.23.0
 (see https://pypi.org/project/gtfs-analyzer/ for how to install it), and, when you give a URL,
 downloads the feed from that URL. On your own computer, install the package into a separate
 environment, such as `~/.cache/gtfs-validator/venv`. The feed is not sent to any server operated by this plugin, and

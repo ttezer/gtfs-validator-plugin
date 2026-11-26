@@ -92,6 +92,20 @@
 | TRN_015 | record_id ve field_value ikisi de boş | YÜKSEK | Spec |
 | TRN_016 | field_value hiçbir kayıtla eşleşmiyor — çeviri uygulanmıyor | ORTA | Spec |
 
+## LIC — Lisanslama
+
+| Kural | Başlık | Önem | Sınıf |
+|---|---|---|---|
+| LIC_001 | Lisans değeri eksik | KRİTİK | Spec |
+| LIC_002 | İki lisans değeri girilmiş | KRİTİK | Spec |
+| LIC_003 | Lisanslanan tablo adı bilinmiyor | ORTA | Interop |
+| LIC_004 | Lisanslanan tablo tekrarlanıyor | KRİTİK | Spec |
+| LIC_005 | Lisanslanan tablo feed içinde yok | BİLGİ | Quality |
+| LIC_006 | Feed lisansı eksik | BİLGİ | Quality |
+| LIC_007 | SPDX lisans kimliği listede yok | BİLGİ | Quality |
+| LIC_008 | Tablo adı yazımı çakışıyor | KRİTİK | Interop |
+| LIC_009 | Özel lisans URL geçersiz | KRİTİK | Spec |
+
 ## ATR — Attributions (Atıflar)
 
 | Kural | Başlık | Önem | Sınıf |

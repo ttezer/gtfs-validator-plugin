@@ -92,6 +92,20 @@
 | TRN_015 | record_id et field_value sont tous deux vides | ÉLEVÉE | Spec |
 | TRN_016 | field_value ne correspond à aucun enregistrement — la traduction n’est jamais appliquée | MOYENNE | Spec |
 
+## LIC — Licences
+
+| Règle | Titre | Gravité | Classe |
+|---|---|---|---|
+| LIC_001 | Licence manquante | CRITIQUE | Spec |
+| LIC_002 | Deux licences indiquées | CRITIQUE | Spec |
+| LIC_003 | Table sous licence inconnue | MOYENNE | Interop |
+| LIC_004 | Table sous licence en double | CRITIQUE | Spec |
+| LIC_005 | Table sous licence absente | INFO | Quality |
+| LIC_006 | Licence du flux absente | INFO | Quality |
+| LIC_007 | Identifiant SPDX absent de la liste | INFO | Quality |
+| LIC_008 | Noms de table en conflit | CRITIQUE | Interop |
+| LIC_009 | URL de licence invalide | CRITIQUE | Spec |
+
 ## ATR — Attributions
 
 | Règle | Titre | Gravité | Classe |
